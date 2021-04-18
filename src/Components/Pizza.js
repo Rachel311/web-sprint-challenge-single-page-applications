@@ -1,34 +1,63 @@
 import React from 'react';
+import { useState } from 'react';
+import axios from 'axios';
 
-function Pizza(props) {
-    const { values, onChange, onSubmit } = props
-    console.log(values);
+
+function Pizza() {
+    const [pizza, setPizza] = useState({
+        user_name: "",
+        pizza_name: "",
+        pizza_size: "",
+        pizza_mushroom: "",
+        pizza_sausage: "",
+        pizza_olive: "",
+        pizza_pepperoni: "",
+        special_instructions: ""
+    })
+
+    const onChange = e => {
+        e.persist()
+        let value = e.target.type === "radio" ? e.target.checked : e.target.value
+        setPizza({
+            ...pizza, 
+            [e.target.name] : value
+        })
+    }
+
+    const onSubmit = e => {
+        e.preventDefault()
+        axios.post(`https://reqres.in/api/users`, pizza)
+        .then(res => {
+            console.log(res.data)
+        })
+        .catch(error => console.log(error))
+    }
 
     return (
         <div>
     
           <form onSubmit={onSubmit}>
               <div>
-               <label> First Name 
+               <label> Enter Name
                 <input 
                  type="text"
-                 name="first_name"
-                 placeholder='enter your first name'
+                 name="user_name"
+                 placeholder='enter your name'
                  onChange={onChange}
-                 value={values.first_name}
+                 value={pizza.user_name}
+               />
+               </label>
+
+               <label> Type of Pizza
+                <input 
+                 type="text"
+                 name="type of pizza"
+                 placeholder='enter pizza type'
+                 onChange={onChange}
+                 value={pizza.pizza_name}
                />
                </label>
     
-                <label> Last name
-                    <input
-                    type='text'
-                    name='last_name'
-                     placeholder='enter your last name'
-                    onChange={onChange}
-                    value={values.last_name}
-    
-                    />
-                </label>
     
                <label> Special Instructions
                   <input 
@@ -36,13 +65,13 @@ function Pizza(props) {
                   name="special instructions"
                   placeholder='special instructions'
                   onChange={onChange}
-                  value={values.special_instructions}
+                  value={pizza.special_instructions}
                 />
                </label>  
     
                <div>
                   <label> Pizza Size
-                    <select name="Title" onChange={onChange} value={values.title}>
+                    <select name="Title" onChange={onChange} value={pizza.pizza_size}>
                       <option value="">---Select One---</option>
                       <option value="8 inch">8"</option>
                       <option value="12 inch">12"</option>
@@ -53,14 +82,14 @@ function Pizza(props) {
                 </div>
 
                 <div>
-                    <div>{values.toppings}</div>
-                    <label><div>Toppings:</div>
-                    <input type='checkbox'>Cheese</input>
-                    <input type='checkbox'>Mushrooms</input>
-                    <input type='checkbox'>Olives</input>
-                    <input type='checkbox'>Ham</input>
-                    <input type='checkbox'>Sausage</input>
-                    </label>
+                    <label for = "mushroom">Mushrooms</label>
+                    <input type = "radio" name = "mushroom" value ={pizza.pizza_mushroom} onChange={onChange}></input>
+                    <label for = "sausage">Sausage</label>
+                    <input type = "radio" name = "sausage" value ={pizza.pizza_sausage} onChange={onChange}></input>
+                    <label for = "olive">Olives</label>
+                    <input type = "radio" name = "olive" value ={pizza.pizza_olive} onChange={onChange}></input>
+                    <label for = "pepperoni">Pepperoni</label>
+                    <input type = "radio" name = "pepperoni" value ={pizza.pizza_pepperoni} onChange={onChange}></input>
                 </div>
     
             <div>

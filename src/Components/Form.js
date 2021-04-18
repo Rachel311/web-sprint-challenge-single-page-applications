@@ -1,5 +1,5 @@
 import React from 'react';
-import Pizza from './Pizza'
+import { Link } from 'react-router-dom'
 
 function Form(props) {
     const { values, onSubmit } = props
@@ -12,7 +12,10 @@ function Form(props) {
                 <span></span>
                 <h2>Click the button to build your custom pizza!</h2>
                 <div>
-                <button onClick={()=>{props.history.push(Pizza)}} >Click Here!</button>
+                <Link to="/pizza">
+                <button>Click Here!</button>
+                </Link>
+                
                 </div>
             </form>
                 
