@@ -6,7 +6,6 @@ import axios from 'axios';
 function Pizza() {
     const [pizza, setPizza] = useState({
         user_name: "",
-        pizza_name: "",
         pizza_size: "",
         pizza_mushroom: "",
         pizza_sausage: "",
@@ -38,47 +37,44 @@ function Pizza() {
     
           <form onSubmit={onSubmit}>
               <div>
-               <label> Enter Name
-                <input 
+               <label for="user_name"> Enter Name</label>
+               <input 
                  type="text"
                  name="user_name"
+                 id="user_name"
                  placeholder='enter your name'
                  onChange={onChange}
                  value={pizza.user_name}
                />
-               </label>
 
-               <label> Type of Pizza
-                <input 
-                 type="text"
-                 name="type of pizza"
-                 placeholder='enter pizza type'
-                 onChange={onChange}
-                 value={pizza.pizza_name}
-               />
-               </label>
+               
     
     
-               <label> Special Instructions
-                  <input 
+               <label for="special_instructions">Special Instructions</label>  
+               <input 
                   type="text"
-                  name="special instructions"
+                  name="special_instructions"
+                  id="special_instructions"
                   placeholder='special instructions'
                   onChange={onChange}
                   value={pizza.special_instructions}
                 />
-               </label>  
     
                <div>
-                  <label> Pizza Size
-                    <select name="Title" onChange={onChange} value={pizza.pizza_size}>
+                  <label for="size"> Pizza Size</label>
+                    <select
+                     name="size" 
+                     id="size" 
+                     onChange={onChange} 
+                    //  value={pizza.pizza_size}
+                     >
                       <option value="">---Select One---</option>
                       <option value="8 inch">8"</option>
                       <option value="12 inch">12"</option>
                       <option value="16 inch">16"</option>
                       <option value="20 inch">20"</option>
                     </select>
-                  </label>
+                  
                 </div>
 
                 <div>
@@ -93,7 +89,7 @@ function Pizza() {
                 </div>
     
             <div>
-                <button> Submit </button>
+                <button> Add to Order </button>
             </div>
             
              
